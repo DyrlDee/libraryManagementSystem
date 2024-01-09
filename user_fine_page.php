@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+include("config.php");
+
+// $user_id = $_SESSION["user_id"];
 ?>
 
 <!DOCTYPE html>
@@ -65,33 +69,37 @@ session_start();
 
                 <tbody>
                 
-                <!-- <tr><td colspan="5">0 results</td></tr> -->
+                <?php
+                $sql = "SELECT * FROM fine WHERE user_id = 1"; 
+                //SELECT * FROM fine WHERE user_id = $user_id actual code
+                $result = mysqli_query($conn, $sql);
 
-                <tr>
-                    <td data-title='No' class="rowNumber">1</td>
-                    <td data-title='Fine Category'>damaged book</td>
-                    <td data-title='Description'>you damage my book</td>
-                    <td data-title='Fine Fee'>9999</td>
-                    <td data-title='Status'>pending</td>
-                </tr>
+                if (mysqli_num_rows($result) > 0) {
+                // output data of each row 
+                $numrow=1;
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td data-title='No' class='rowNumber'>" . $numrow . "</td><td data-title='Fine Category'>". $row["fine_category"]. "</td><td data-title='Description'>" . $row["fine_description"] .
+                    "</td><td data-title='Fine Fee'>" . $row["fine_fee"] . "</td><td data-title='Status'>" . $row["status"] 
+                    . "</td>";
+                    echo "</tr>" . "\n\t\t";
+                    $numrow++;
+                }
+                } else {
+                echo '<tr><td colspan="5">0 results</td></tr>';
+                } 
+                mysqli_close($conn); 
+                ?>
 
-                <tr>
+                </tbody>
+
+                <!-- <tr>
                     <td data-title='No' class="rowNumber">2</td>
                     <td data-title='Fine Category'>damaged key</td>
                     <td data-title='Description'>you damage my key</td>
                     <td data-title='Fine Fee'>1000</td>
                     <td data-title='Status'>pending</td>
-                </tr>
-
-                <tr>
-                    <td data-title='No' class="rowNumber">3</td>
-                    <td data-title='Fine Category'>damaged key</td>
-                    <td data-title='Description'>you damage my key</td>
-                    <td data-title='Fine Fee'>1000</td>
-                    <td data-title='Status'>pending</td>
-                </tr>
-
-                </tbody>
+                </tr> -->
 
                 
             </table>
