@@ -198,6 +198,85 @@ table.Atable th,td{
         font-weight: 900;
        
     }
+}
 
+/*===========================================
+    Search fine
+===========================================*/
 
+div.search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+div.search label{
+    color: #794FCD;
+    font-weight: 600;
+}
+
+div.search input[type="email"]{
+    border: 0;
+    border-radius: 3px;
+    padding: 8px;
+    margin: 0 5px 0 5px;
+}
+
+div.search input[type="submit"]{
+    border: 0;
+    background-color: #4C2894;
+    color: #EEF0F4;
+    font-weight: 300;
+    padding: 7px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/*===========================================
+    h3 that display info username, email etc
+===========================================*/
+
+h3.displayInfo{
+    font-weight: 400;
+    width: 80%;
+    margin: auto;
+}
+
+/*===========================================
+    Not exist display
+===========================================*/
+
+.not_exist{
+    font-weight: 300;
+    color: rgb(66, 66, 66);
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+/*===========================================
+    link btn style
+===========================================*/
+
+a.link-btn{
+    background-color: #794FCD;
+    color: #EEF0F4;
+    text-decoration: none;
+    font-weight: 300;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+/*===========================================
+    link to add style
+===========================================*/
+.addlink{
+    font-weight: 300;
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+    padding: 10px;
+    margin: auto;
 }
