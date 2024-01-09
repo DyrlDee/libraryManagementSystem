@@ -41,8 +41,8 @@ session_start();
             
         }
         else {
-            //include 'user_menu.php';
-            include 'staff_menu.php';
+            include 'user_menu.php';
+            // include 'staff_menu.php';
             // include 'menu.php';
         }
         ?>
