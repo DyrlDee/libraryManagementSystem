@@ -66,9 +66,11 @@ include("config.php");
                     if(isset($_GET["email"]) && $_GET["email"] != ""){
 
                         $email =  $_GET["email"];
-                        
+                        $sql0 = "SELECT * FROM user WHERE user_email = '$email'";
                         $sql = "SELECT * FROM fine JOIN user ON fine.user_id = user.user_id WHERE user.user_email = '$email'";
-                        $result = mysqli_query($conn, $sql);
+                        $sql2 = "SELECT * FROM bookloan JOIN user ON bookloan.user_id = user.user_id JOIN book ON bookloan.book_id = book.book_id WHERE user.user_email = '$email'"; //list all user book loan history
+                        $sql3 = "SELECT * FROM reservation JOIN user ON reservation.user_id = user.user_id JOIN facility ON reservation.faci_id = facility.faci_id WHERE user.user_email = '$email'"; //list all user reservatio history
+                        $result = mysqli_query($conn, $sql0);
                         $row = mysqli_fetch_assoc($result);
                         
                         
@@ -81,7 +83,7 @@ include("config.php");
                             echo "<h3 class='displayInfo'> Username: " . $row["user_name"] . "</h3>";
                             echo "<h3 class='displayInfo'> Email: " . $row["user_email"] . "</h3>";
 
-
+                            //User fine list table
                             echo "<br>";
                             echo "<table border='1' width='80%' style='border-collapse: collapse;' class='Atable'>";
                             echo "<thead>";
@@ -118,11 +120,99 @@ include("config.php");
                                     $numrow++;
                                 }
                                 } else {
-                                echo '<tr><td colspan="6">0 results</td></tr>';
+                                echo '<tr><td colspan="6">User has no fine history</td></tr>';
                             }
                             echo "</tbody>";
                             echo "</table>";
-                            echo "<a class='addlink' href=''>Add Fine <i class='fa fa-plus-circle' aria-hidden='true'></i></a>";
+                            echo "<a class='addlink' href='add_fine.php'>Add Fine <i class='fa fa-plus-circle' aria-hidden='true'></i></a>";
+
+                            //BOOK LOAN TABLE
+                            echo "<br>";
+                            echo "<h3 style='font-weight:600' class='displayInfo'> Book loan history </h3>";
+
+                            echo "<br>";
+                            echo "<table border='1' width='80%' style='border-collapse: collapse;' class='Atable'>";
+                            echo "<thead>";
+                            echo "<tr>";
+
+                            echo " 
+                            <th width='5%'>No</th>
+                            <th width='45%'>Book Name</th>
+                            <th width='15%'>Date borrowed</th>
+                            <th width='15%'>Return Due</th>
+                            <th width='10%'>Status</th>
+                            <th width='10%'></th>
+                            ";
+
+                            echo "</tr>" . "\n\t\t";
+                            echo "</thead>";
+
+                            echo "<tbody>";
+                            
+                            $result2 = mysqli_query($conn, $sql2);
+                            if (mysqli_num_rows($result2) > 0) {
+                                // output data of each row 
+                                $numrow=1;
+                                while($row = mysqli_fetch_assoc($result2)) {
+                                    echo "<tr>";
+                                    echo "<td data-title='No' class='rowNumber'>" . $numrow . "</td><td data-title='Book Name'>". $row["book_name"]. "</td><td data-title='Date borrowed'>" . $row["date_start"] .
+                                    "</td><td data-title='Return Due'>" . $row["date_end"] . "</td><td data-title='Status'>" . $row["hasReturn"] 
+                                    . "</td>";
+                                    echo '<td> <a onClick="return confirm(\'Fine?\');" class="link-btn-red" href="add_fine.php?id=' . $row["loan_id"] . '">Fine</a></td>';
+                                    echo "</tr>" . "\n\t\t";
+                                    $numrow++;
+                                }
+                            } else {
+                                echo '<tr><td colspan=""6>0 results</td></tr>';
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+
+                          
+
+
+                            //RESERVATION TABLE
+                            echo "<br>";
+                            echo "<h3 style='font-weight:600' class='displayInfo'> Reservation history </h3>";
+
+                            echo "<br>";
+                            echo "<table border='1' width='80%' style='border-collapse: collapse;' class='Atable'>";
+                            echo "<thead>";
+                            echo "<tr>";
+
+                            echo " 
+                            <th width='5%'>No</th>
+                            <th width='45%'>Facility Name</th>
+                            <th width='15%'>Date</th>
+                            <th width='15%'>time_start</th>
+                            <th width='10%'>time_end</th>
+                            <th width='10%'></th>
+                            ";
+
+                            echo "</tr>" . "\n\t\t";
+                            echo "</thead>";
+
+                            echo "<tbody>";
+                            
+                            $result3 = mysqli_query($conn, $sql3);
+                            if (mysqli_num_rows($result3) > 0) {
+                                // output data of each row 
+                                $numrow=1;
+                                while($row = mysqli_fetch_assoc($result3)) {
+                                    echo "<tr>";
+                                    echo "<td data-title='No' class='rowNumber'>" . $numrow . "</td><td data-title='Facility Name'>". $row["faci_name"]. "</td><td data-title='Date'>" . $row["date"] .
+                                    "</td><td data-title='time_start'>" . $row["time_start"] . "</td><td data-title='time_end'>" . $row["time_end"] 
+                                    . "</td>";
+                                    echo '<td> <a onClick="return confirm(\'Fine?\');" class="link-btn-red" href="add_fine.php?id=' . $row["reserve_id"] . '">Fine</a></td>';
+                                    echo "</tr>" . "\n\t\t";
+                                    $numrow++;
+                                }
+                            } else {
+                                echo '<tr><td colspan=""6>0 results</td></tr>';
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+
                             
                         }
                         else{
@@ -134,6 +224,9 @@ include("config.php");
                     }
                     mysqli_close($conn);
         ?>
+
+        <br>
+        <br>
 
     </body>
 </html>

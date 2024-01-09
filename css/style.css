@@ -156,7 +156,7 @@ table.Atable thead th{
 
 table.Atable th,td{
     border: 0;
-    padding: 5px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -262,6 +262,19 @@ h3.displayInfo{
 
 a.link-btn{
     background-color: #794FCD;
+    color: #EEF0F4;
+    text-decoration: none;
+    font-weight: 300;
+    padding: 3px;
+    border-radius: 3px;
+}
+
+/*===========================================
+    link btn style red
+===========================================*/
+
+a.link-btn-red{
+    background-color: #E44734;
     color: #EEF0F4;
     text-decoration: none;
     font-weight: 300;
