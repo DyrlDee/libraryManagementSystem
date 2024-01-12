@@ -276,7 +276,26 @@ table.Atable {
         text-align: center;
     }
 
-
+	/* table.Atable input[type="submit"] - SHARON */
+	table.Atable input[type="submit"] {
+		border: 0;
+		background-color: #4C2894;
+		color: #EEF0F4;
+		font-weight: 300;
+		padding: 7px;
+		border-radius: 3px;
+		cursor: pointer;
+	}
+	/* table.Atable input[type="button"], for delete button - SHARON */
+	table.Atable input[type="button"] {
+		border: 0;
+		background-color: #E44734;
+		color: #EEF0F4;
+		font-weight: 300;
+		padding: 7px;
+		border-radius: 3px;
+		cursor: pointer;
+	}
 
 /*===========================================
     Table responsive style
@@ -318,7 +337,7 @@ table.Atable {
 }
 
 /*===========================================
-    Search 
+    Notification Form 
 ===========================================*/
 div.notification-form {
     display: flex;
@@ -375,8 +394,9 @@ div.search {
         font-weight: 600;
     }
 
-    div.search input[type="email"] {
-        border: 0;
+    div.search input[type="email"], div.search input[type="text"] {
+        /* div.search input[type="text"] - SHARON */
+		border: 0;
         border-radius: 3px;
         padding: 8px;
         margin: 0 5px 0 5px;
@@ -422,6 +442,14 @@ a.link-btn {
 }
 
 
+a.link-btn-red {
+    background-color: #E44734;
+    color: #EEF0F4;
+    text-decoration: none;
+    font-weight: 300;
+    padding: 3px;
+    border-radius: 3px;
+}
 
 /*===========================================
     link to add style
@@ -433,4 +461,103 @@ a.link-btn {
     width: fit-content;
     padding: 10px;
     margin: auto;
+}
+
+/*===========================================
+    Grid style (STAFF FACILITY,BOOK - SHARON)
+===========================================*/
+.gridiv{
+	width:50%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.gridivbook{
+	width:80%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 10px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+}
+
+.griditem {
+	text-align: center;
+	padding:10px;
+	justify-content: space-around;
+    align-items: center;
+}
+
+.gridimg {
+	position:relative;
+	background-color: #fff;
+	margin:10px;
+	border-radius:5%;
+	box-shadow: 1px 1px 4px rgb(66, 66, 66);
+	margin-bottom: 10px;
+}
+
+.bookimg {
+	width:200px;
+	height:300px;
+	background-color: #fff;
+	object-fit: cover;
+	box-shadow: 1px 1px 4px rgb(66, 66, 66);
+	margin-bottom: 10px;
+}
+
+.nobookimg {
+	width:200px;
+	height:300px;
+	background-color: #d9d9d9;
+	box-shadow: 1px 1px 4px rgb(66, 66, 66);
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 17px;
+	position:relative;
+	text-align:center;
+	color: #28303f;
+}
+
+.gridtext {
+	left: 0;
+    position:absolute;
+    text-align:center;
+    top: 35%;
+    width: 100%
+}
+
+/*===========================================
+    Grid style responsive (STAFF FACILITY,BOOK - SHARON)
+===========================================*/
+@media(max-width:992px){
+	.gridiv{
+		width:70%;
+		grid-template-columns: repeat(4, 1fr);
+	}
+	
+	.gridivbook{
+		width:80%;
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media(max-width:768px){
+	.gridiv{
+		width:90%;
+		grid-template-columns: repeat(3, 1fr);
+	}
+	
+	.gridivbook{
+		width:90%;
+		grid-template-columns: repeat(2, 1fr);
+	}
+	
+	.bookimg, .nobookimg {
+		width:180px;
+		height:280px;
+	}
 }
