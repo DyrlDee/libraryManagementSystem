@@ -71,7 +71,6 @@ include("config.php");
 					<th width='30%'>Username</th>
 					<th width='30%'>Email</th>
 					<th width='20%'>Phone Number</th>
-					<th width='10%'></th>
 				";
 
 				echo "</tr>" . "\n\t\t";
@@ -87,7 +86,6 @@ include("config.php");
 					echo "<td data-title='Username'>" . $row["user_name"] . "</td>";
 					echo "<td data-title='Email'>" . $row["user_email"] . "</td>";
 					echo "<td data-title='Phone Number'>" . $row["phone_number"] . "</td>";
-					echo '<td> <a class="link-btn" href="">View</a>&nbsp;&nbsp;';
 					echo "</tr>";
 					$count++; // Increment the count for each row
 				}
