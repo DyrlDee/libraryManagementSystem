@@ -881,3 +881,123 @@ div.fineEditForm div input[type="submit"]{
 /*===========================================
 
 ===========================================*/
+
+
+
+/*===========================================
+    View Report
+===========================================*/
+
+.section_table_1 {
+    width: 100%;
+    max-width: 1500px;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    font-family: Raleway;
+    font-weight: 200;
+}
+
+.report_table {
+    width: 100%;
+    margin: 0;    
+    padding: 0;   
+    border-collapse: collapse;
+    border: none;
+    background-color: transparent; 
+}
+
+.report_table td {
+    box-sizing: border-box;
+    border: 1px solid transparent; 
+}
+
+.report_columns td {
+    background-color: #794FCD;
+    color: #FFFFFF
+}
+
+.report_rows td {
+    background-color: #faf5ff;
+}
+
+.title {
+    margin-top: 150px;
+}
+
+.report_table td.No { width: 10%; }
+.report_table td.Report_Category { width: 30%; }
+.report_table td.Description { width: 40%; }
+.report_table td.Status { width: 20%; }
+
+/*===========================================
+    Report Facility
+===========================================*/
+
+.section_table_2 {
+    width: 100%;
+    max-width: 400px;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: Raleway;
+    font-weight: 300;
+    padding: 20px;
+    color: #794FCD;
+}
+
+.facility_report {
+    width: 100%;
+    margin: 0;    
+    padding: 0;   
+    border-collapse: collapse;
+    border: none;
+    background-color: transparent; 
+}
+
+.faci_title {
+    width: 35%;
+    text-align: left;
+}
+
+.faci_title_d {
+    width: 100%;
+    text-align: left;
+}
+
+/*===========================================
+    Book Report
+===========================================*/
+.book_grid {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 700px;
+}
+
+.photo_grid,
+.table_grid {
+    width: 48%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    border: none;
+}
+
+.photo_grid {
+    width: 48%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.photo_grid img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+
