@@ -45,8 +45,8 @@ include("config.php");
             
         }
         else {
-            include 'user_menu.php';
-            // include 'staff_menu.php';
+            // include 'user_menu.php';
+            include 'staff_menu.php';
             // include 'menu.php';
         }
         ?>
@@ -63,7 +63,7 @@ include("config.php");
        
         <?php
 
-                    if(isset($_GET["email"]) && $_GET["email"] != ""){
+                    if(isset($_GET["email"]) && $_GET["email"] !=""){
 
                         $email =  $_GET["email"];
                         $sql0 = "SELECT * FROM user WHERE user_email = '$email'";
@@ -82,6 +82,9 @@ include("config.php");
                             echo "<h3 style='font-weight:600' class='displayInfo'> User Info </h3>";
                             echo "<h3 class='displayInfo'> Username: " . $row["user_name"] . "</h3>";
                             echo "<h3 class='displayInfo'> Email: " . $row["user_email"] . "</h3>";
+
+                            //assign user id
+                            $user_id = $row["user_id"];
 
                             //User fine list table
                             echo "<br>";
@@ -113,7 +116,7 @@ include("config.php");
                                     echo "<td data-title='No' class='rowNumber'>" . $numrow . "</td><td data-title='Fine Category'>". $row["fine_category"]. "</td><td data-title='Description'>" . $row["fine_description"] .
                                     "</td><td data-title='Fine Fee'>" . $row["fine_fee"] . "</td><td data-title='Status'>" . $row["status"] 
                                     . "</td>";
-                                    echo '<td> <a class="link-btn" href="edit_fine.php?id=' . $row["fine_id"] . '">Edit</a>&nbsp;&nbsp;';
+                                    echo '<td> <a class="link-btn" href="edit_fine.php?fine_id=' . $row["fine_id"] . '">Edit</a>&nbsp;&nbsp;';
                                     echo '<a class="link-btn" href="delete_fine.php?id=' . $row["fine_id"] . 
                                     '" onClick="return confirm(\'Delete?\');">Delete</a> </td>';
                                     echo "</tr>" . "\n\t\t";
@@ -140,7 +143,7 @@ include("config.php");
                             <th width='45%'>Book Name</th>
                             <th width='15%'>Date borrowed</th>
                             <th width='15%'>Return Due</th>
-                            <th width='10%'>Status</th>
+                            <th width='10%'>Return Status</th>
                             <th width='10%'></th>
                             ";
 
@@ -156,9 +159,9 @@ include("config.php");
                                 while($row = mysqli_fetch_assoc($result2)) {
                                     echo "<tr>";
                                     echo "<td data-title='No' class='rowNumber'>" . $numrow . "</td><td data-title='Book Name'>". $row["book_name"]. "</td><td data-title='Date borrowed'>" . $row["date_start"] .
-                                    "</td><td data-title='Return Due'>" . $row["date_end"] . "</td><td data-title='Status'>" . $row["hasReturn"] 
+                                    "</td><td data-title='Return Due'>" . $row["date_end"] . "</td><td data-title='Return Status'>" . $row["hasReturn"] 
                                     . "</td>";
-                                    echo '<td> <a onClick="return confirm(\'Fine?\');" class="link-btn-red" href="add_fine.php?id=' . $row["loan_id"] . '">Fine</a></td>';
+                                    echo '<td> <a class="link-btn-red" href="add_fine.php?loan_id=' . $row["loan_id"] . '&email='. $email.'&user_id='. $user_id.'">Fine</a></td>';
                                     echo "</tr>" . "\n\t\t";
                                     $numrow++;
                                 }
@@ -203,7 +206,7 @@ include("config.php");
                                     echo "<td data-title='No' class='rowNumber'>" . $numrow . "</td><td data-title='Facility Name'>". $row["faci_name"]. "</td><td data-title='Date'>" . $row["date"] .
                                     "</td><td data-title='time_start'>" . $row["time_start"] . "</td><td data-title='time_end'>" . $row["time_end"] 
                                     . "</td>";
-                                    echo '<td> <a onClick="return confirm(\'Fine?\');" class="link-btn-red" href="add_fine.php?id=' . $row["reserve_id"] . '">Fine</a></td>';
+                                    echo '<td> <a class="link-btn-red" href="add_fine.php?reserve_id=' . $row["reserve_id"] . '&email='. $email.'&user_id='. $user_id.'">Fine</a></td>';
                                     echo "</tr>" . "\n\t\t";
                                     $numrow++;
                                 }

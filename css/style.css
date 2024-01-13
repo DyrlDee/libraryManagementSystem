@@ -4,7 +4,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     flex-direction: column;
     align-items: stretch;
     background-color: #EEF0F4;
@@ -44,6 +44,7 @@ header {
     align-items: center;
     padding: 10px;
     z-index: 99;
+    
 }
 
 /*===========================================
@@ -560,4 +561,71 @@ a.link-btn-red {
 		width:180px;
 		height:280px;
 	}
+}
+
+
+
+/*===========================================
+    Fine Edit Form
+===========================================*/
+
+div.fineEditForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+div.fineEditForm div{
+    width: fit-content;
+    margin: auto;
+}
+
+div.sepInput{
+    padding: 5px;
+}
+
+div.fineEditForm div label{
+    color: #4C2894;
+    font-weight: 500;
+}
+
+
+div.fineEditForm div input[type="text"],select{
+    border: 0;
+    padding:5px;
+    border-radius: 3px;
+}
+
+div.fineEditForm div textarea{
+    border: 0;
+    border-radius: 3px;
+}
+
+div.fineEditForm div input[type="submit"]{
+    border: 0;
+    padding:5px;
+    border-radius: 3px;
+    background-color: #794FCD;
+    color: #fff;
+    cursor: pointer;
+}
+
+.EditFineInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin:auto;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+/* Media query for editFineInfo */
+@media only screen and (max-width: 600px) {
+    .EditFineInfo{
+        width: 75%;
+    }
 }
