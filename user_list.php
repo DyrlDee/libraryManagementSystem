@@ -57,51 +57,50 @@ include("config.php");
 		<div class="container">
 
         <?php
-        // Fetch user details from the database
-        $sql = "SELECT * FROM user";
-        $result = mysqli_query($conn, $sql);
+			// Fetch user details from the database with role = 2
+			$sql = "SELECT * FROM user WHERE role = 2";
+			$result = mysqli_query($conn, $sql);
 
-        if (mysqli_num_rows($result) > 0) {
-            echo "<table border='1' width='80%' style='border-collapse: collapse;' class='Atable'>";
-            echo "<thead>";
-            echo "<tr>";
+			if (mysqli_num_rows($result) > 0) {
+				echo "<table border='1' width='80%' style='border-collapse: collapse;' class='Atable'>";
+				echo "<thead>";
+				echo "<tr>";
 
-            echo " 
-                <th width='5%'>No</th>
-                <th width='5%'>User ID</th>
-                <th width='30%'>Username</th>
-                <th width='30%'>Email</th>
-                <th width='20%'>Phone Number</th>
-				<th width='10%'></th>
-            ";
+				echo " 
+					<th width='5%'>No</th>
+					<th width='30%'>Username</th>
+					<th width='30%'>Email</th>
+					<th width='20%'>Phone Number</th>
+					<th width='10%'></th>
+				";
 
-            echo "</tr>" . "\n\t\t";
-            echo "</thead>";
+				echo "</tr>" . "\n\t\t";
+				echo "</thead>";
 
-            echo "<tbody>";
+				echo "<tbody>";
 
-			$count = 1; // Initialize the count variable
+				$count = 1; // Initialize the count variable
 
-            while($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td data-title='No'>" . $count . "</td>";
-                echo "<td data-title='User ID'>" . $row["user_id"] . "</td>";
-                echo "<td data-title='Username'>" . $row["user_name"] . "</td>";
-                echo "<td data-title='Email'>" . $row["user_email"] . "</td>";
-                echo "<td data-title='Phone Number'>" . $row["phone_number"] . "</td>";
-				echo '<td> <a class="link-btn" href="">View</a>&nbsp;&nbsp;';
-                echo "</tr>";
-				$count++; // Increment the count for each row
-            }
+				while($row = mysqli_fetch_assoc($result)) {
+					echo "<tr>";
+					echo "<td data-title='No'>" . $count . "</td>";
+					echo "<td data-title='Username'>" . $row["user_name"] . "</td>";
+					echo "<td data-title='Email'>" . $row["user_email"] . "</td>";
+					echo "<td data-title='Phone Number'>" . $row["phone_number"] . "</td>";
+					echo '<td> <a class="link-btn" href="">View</a>&nbsp;&nbsp;';
+					echo "</tr>";
+					$count++; // Increment the count for each row
+				}
 
-            echo "</tbody>";
-            echo "</table>";
-        } else {
-            echo "<p class='not_exist'> No users found.</p>";
-        }
+				echo "</tbody>";
+				echo "</table>";
+			} else {
+				echo "<p class='not_exist'> No users found with role = 2.</p>";
+			}
 
-        mysqli_close($conn);
-        ?>
+			mysqli_close($conn);
+		?>
+
 
 		</div>
 
