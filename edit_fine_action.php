@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($status) {
         header("Location: staff_fine_page.php?email=$email");
     } else {
-        echo '<a href="my_challenge.php">Back</a>';
+        header("Location: staff_fine_page.php?email=$email");
     } 
   
 }

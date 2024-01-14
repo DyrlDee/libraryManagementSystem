@@ -116,9 +116,9 @@ include("config.php");
                                     echo "<td data-title='No' class='rowNumber'>" . $numrow . "</td><td data-title='Fine Category'>". $row["fine_category"]. "</td><td data-title='Description'>" . $row["fine_description"] .
                                     "</td><td data-title='Fine Fee'>" . $row["fine_fee"] . "</td><td data-title='Status'>" . $row["status"] 
                                     . "</td>";
-                                    echo '<td> <a class="link-btn" href="edit_fine.php?fine_id=' . $row["fine_id"] . '">Edit</a>&nbsp;&nbsp;';
+                                    echo '<td> <a class="link-btn" href="edit_fine.php?fine_id=' . $row["fine_id"] . '&email='. $email.'">Edit</a>&nbsp;&nbsp;';
                                     echo '<a class="link-btn" href="delete_fine.php?id=' . $row["fine_id"] . 
-                                    '" onClick="return confirm(\'Delete?\');">Delete</a> </td>';
+                                    '&email='. $email.'" onClick="return confirm(\'Delete?\');">Delete</a> </td>';
                                     echo "</tr>" . "\n\t\t";
                                     $numrow++;
                                 }
@@ -127,7 +127,6 @@ include("config.php");
                             }
                             echo "</tbody>";
                             echo "</table>";
-                            echo "<a class='addlink' href='add_fine.php'>Add Fine <i class='fa fa-plus-circle' aria-hidden='true'></i></a>";
 
                             //BOOK LOAN TABLE
                             echo "<br>";
