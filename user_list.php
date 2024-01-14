@@ -102,9 +102,5 @@ include("config.php");
 
 		</div>
 
-		<footer>
-			<br>Copyright 2023.</br>
-		</footer>
-
     </body>
 </html>

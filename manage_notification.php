@@ -69,16 +69,20 @@ include("config.php");
 		if (isset($_GET["email"]) && $_GET["email"] != "") {
 			$email = $_GET["email"];
 
+			$sql0 = "SELECT * FROM user WHERE user_email = '$email'";
 			$sql = "SELECT * FROM notification JOIN user ON notification.user_id = user.user_id WHERE user.user_email = '$email'";
-			$result = mysqli_query($conn, $sql);
+			$result = mysqli_query($conn, $sql0);
+			$row = mysqli_fetch_assoc($result);
 
 			echo "<div>";
-
-			// Check if the email exists in the database
+			if($row){
+				// Check if the email exists in the database
+			echo "<h3 style='font-weight:600' class='displayInfo'> User Info </h3>";
+			echo "<h3 class='displayInfo'> <b>Username</b>: " . $row["user_name"] . "</h3>";
+			echo "<h3 class='displayInfo'> <b>Email:</b> " . $row["user_email"] . "</h3>";
+			$result = mysqli_query($conn, $sql);
 			if ($row = mysqli_fetch_assoc($result)) {
-				echo "<h3 style='font-weight:600' class='displayInfo'> User Info </h3>";
-				echo "<h3 class='displayInfo'> Username: " . $row["user_name"] . "</h3>";
-				echo "<h3 class='displayInfo'> Email: " . $row["user_email"] . "</h3>";
+				
 
 				echo "<br>";
 				echo "<table border='1' width='80%' style='border-collapse: collapse;' class='Atable'>";
@@ -109,11 +113,13 @@ include("config.php");
 
 				echo "</tbody>";
 				echo "</table>";
-				
-				echo "<a class='addlink' href='add_notification.php?email=" . urlencode($email) . "'>Add Notification <i class='fa fa-plus-circle' aria-hidden='true'></i></a>";
 
+			} 
 
-			} else {
+			echo "<a class='addlink' href='add_notification.php?email=" . urlencode($email) . "'>Add Notification <i class='fa fa-plus-circle' aria-hidden='true'></i></a>";
+
+			}
+			else {
 				// Check if there are no notifications
 				$sqlCheckUser = "SELECT * FROM user WHERE user_email = '$email'";
 				$resultCheckUser = mysqli_query($conn, $sqlCheckUser);
@@ -124,7 +130,7 @@ include("config.php");
 					echo "<p class='not_exist'> The email you searched, $email, does not exist in the database.</p>";
 				}
 			}
-
+			
 			echo "</div>";
 		} else {
 			// Display search prompt when the page is loaded
@@ -135,10 +141,6 @@ include("config.php");
 
 
 		</div>
-
-		<footer>
-			<br>Copyright 2023.</br>
-		</footer>
 
     </body>
 </html>

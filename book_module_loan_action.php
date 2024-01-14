@@ -113,7 +113,6 @@ if (isset($_SESSION["type"])) {
                 <th width="30%">Date Borrowed</th>
                 <th width="20%">Return Due</th>
                 <th width="15%">Status</th>
-                <th width="15%">&nbsp;</th>
             </tr>
         </thead>
 
@@ -134,16 +133,15 @@ if (isset($_SESSION["type"])) {
                         <td data-title="Book Name">' . getBookName($row["book_id"]) . '</td>
                         <td data-title="Date Borrowed">' . $row["date_start"] . '</td>
                         <td data-title="Return Due">' . $row["date_end"] . '</td>
-                        <td data-title="Status">' . getStatusLabel($row["hasReturn"]) . '</td>
-                        <td>';
+                        <td data-title="Status">' . getStatusLabel($row["hasReturn"]) . '</td>';
 
-                // Check if the book has already been returned
-                if ($row["hasReturn"] == 'no') {
-                    echo '<a class="link-btn" href="">Return</a>';
-                    // Staff should update this book status
-                }
+                // // Check if the book has already been returned
+                // if ($row["hasReturn"] == 'no') {
+                //     echo '<a class="link-btn" href="">Return</a>';
+                //     // Staff should update this book status
+                // }
 
-                echo '</td></tr>';
+                echo '</tr>';
                 $counter++;
             }
             ?>
@@ -179,8 +177,5 @@ function getStatusLabel($status) {
     }
 }
 ?>
-	<footer>
-		<br>Copyright 2023.</br>
-	</footer>
 </body>
 </html>

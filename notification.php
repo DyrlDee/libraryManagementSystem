@@ -1,5 +1,10 @@
 <?php
+session_start();
 include("config.php");
+
+
+$user_id;
+$notifications;
 
 // Fetch notifications for the current user
 if (isset($_SESSION["user_id"])) {
@@ -64,6 +69,7 @@ if (isset($_SESSION["user_id"])) {
     <div class="container">
         <div class="notification-bar">
             <div class="notification-title"> Notification </div>
+
         </div>
 
         <!-- notification message -->
@@ -79,9 +85,6 @@ if (isset($_SESSION["user_id"])) {
         ?>
     </div>
 
-    <footer>
-        <br>Copyright 2023.</br>
-    </footer>
 </body>
 
 </html>
