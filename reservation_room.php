@@ -44,7 +44,6 @@ if (isset($_GET["faci_id"])) {
 
 <body>
 	<?php
-	session_start();
 	if (isset($_SESSION["type"])) {
 	    if ($_SESSION["type"] == 1) {
 	        include 'staff_menu.php';
