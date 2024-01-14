@@ -1,10 +1,19 @@
+<!-- 
+
+    DISCLAIMER
+
+    This is not the complete version of the report; configurations will be made after login, 
+    and the book loan module is available. Linking between different PHP files is required 
+    for it to be automatically displayed in the report. A dummy database is set up solely 
+    for testing the functionality of the code.
+
+    Configuration will be done during the compilation of codes.
+
+ -->
+
 <?php
 session_start();
 include("config.php");
-
-if (isset($_SESSION["user_id"])) {
-    $user_id = $_SESSION["user_id"];
-}
 
 //variables
 $report_description = "";
@@ -13,15 +22,15 @@ $report_description = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //values for add or edit
     $report_description = isset($_POST["report_description"]) ? $_POST["report_description"] : "";
-    $faci_id = $_POST["faci_id"];
-    $sql = "INSERT INTO report (user_id,faci_id,report_category, report_description)
-        VALUES ($user_id,$faci_id,'Facility', '$report_description')";
+
+    $sql = "INSERT INTO report (report_category, report_description, status)
+        VALUES ('Facility', '$report_description', 'Pending')";
 
     $status = insertTo_DBTable($conn, $sql);
 
     if ($status) {
         echo "Form data saved successfully!<br>";
-        header("Location: facility_module.php");
+        header("Location: facility_report.php");
         exit();
     } else {
         echo '<a href="facility_report.php">Back</a>';

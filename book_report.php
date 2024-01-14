@@ -35,7 +35,7 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Report</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -55,18 +55,24 @@ if (isset($_SESSION["user_id"])) {
         
         <?php
             include 'user_menu.php';
-
         ?>
-    
+
+        
+
     <!-- report bar -->
 
     <div class="container">
         <h1 class = "title">Report Book</h1>
-        <form action="book_action.php" method="POST">
             <div class = "book_grid">
-
+                <?php
+                    $user_id = $_SESSION["user_id"];
+                    $sql = "SELECT * FROM book WHERE user_id = '$user_id' AND book_name = '$book_name'";
+                ?>
+                
+                <form action="book_action.php" method="POST">
                     <div class="photo_grid">
-                        <img src="img/ToKillAMockingbird.jpg" alt="Book Image">
+                        <!-- <img src="img/ToKillAMockingbird.jpg" alt="Book Image"> -->
+                        <img src="img/<?php echo $book_img; ?>" alt="Book Image">
                     </div>
 
                     <div class = "table_grid">
@@ -74,25 +80,52 @@ if (isset($_SESSION["user_id"])) {
                             <table class = "facility_report">
                                 <tr>
                                     <td class = "faci_title"> Book Name: </td>
-                                    <td><input type="text" name="book_name" size="5" required></td>
+                                    <?php
+                                        if ($result) {
+                                            $row = mysqli_fetch_assoc($result);
+                                            if ($row) {
+                                                echo "<td>" . (isset($row["book_name"]) ? $row["book_name"] : "") . "</td>";
+                                            } else {
+                                                echo "No data found";
+                                            }
+                                        }
+                                    ?>
                                 </tr>
                                 <tr>
-                                    <td class = "faci_title"> Author Type: </td>
-                                    <td><input type="text" name="author" size="5" required></td>
+                                    <td class = "faci_title"> Author: </td>
+                                    <?php
+                                        if ($result) {
+                                            $row = mysqli_fetch_assoc($result);
+                                            if ($row) {
+                                                echo "<td>" . (isset($row["book_author"]) ? $row["book_author"] : "") . "</td>";
+                                            } else {
+                                                echo "No data found";
+                                            }
+                                        }
+                                    ?>
                                 </tr>
                                 <tr>
                                     <td class = "faci_title"> Publisher: </td>
-                                    <td><input type="text" name="publisher" size="5" required></td>
+                                    <?php
+                                        if ($result) {
+                                            $row = mysqli_fetch_assoc($result);
+                                            if ($row) {
+                                                echo "<td>" . (isset($row["book_publisher"]) ? $row["book_publisher"] : "") . "</td>";
+                                            } else {
+                                                echo "No data found";
+                                            }
+                                        }
+                                    ?>
                                 </tr>
                                 <tr>
                                     <td class = "faci_title"> Report Category: </td>
-                                    <td><input type="text" name="cat" size="5" required></td>
+                                    <td>Book</td>
                                 </tr>
                                 <tr>
                                     <td class = "faci_title_d"> Report Description: </td>
                                 </tr>
                                 <tr>
-                                    <td><textarea rows="4" name="book_des" cols="20"></textarea></td>
+                                    <td><textarea rows="4" name="report_description" cols="20"></textarea></td>
                                 </tr>
                             </table> 
                         </div>

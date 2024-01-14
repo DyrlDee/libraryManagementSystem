@@ -1,32 +1,27 @@
-<!-- 
-
-    DISCLAIMER
-
-    This is not the complete version of the report; configurations will be made after login, 
-    and the book loan module is available. Linking between different PHP files is required 
-    for it to be automatically displayed in the report. A dummy database is set up solely 
-    for testing the functionality of the code.
-
-    Configuration will be done during the compilation of codes.
-
- -->
-
 <?php
+session_start();
 include("config.php");
 
-// Fetch notifications for the current user
 if (isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
-    $query = "SELECT * FROM notification WHERE user_id = $user_id";
-    $result = mysqli_query($conn, $query);
-
-    if (!$result) {
-        die("Query failed: " . mysqli_error($conn));
-    }
-
-    // Fetched notifications array
-    $notifications = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
+
+if(isset($_GET["faci_id"]) && $_GET["faci_id"] != ""){
+
+    $faci_id = $_GET["faci_id"];
+}
+
+
+$query = "SELECT * FROM facility WHERE faci_id = $faci_id ";
+$result = mysqli_query($conn, $query);
+
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
+
+// Fetch the data from the result set
+$row = mysqli_fetch_assoc($result);
+
 ?>
 
 <!DOCTYPE html>
@@ -53,34 +48,15 @@ if (isset($_SESSION["user_id"])) {
 
 <body>
         <?php
-        // if(isset($_SESSION["type"])){
-
-        //     if($_SESSION["type"] == 1){
-        //         // For Staff
-        //         include 'staff_menu.php';
-        //     }
-        //     elseif($_SESSION["type"] == 2){
-        //         //For User
-        //         include 'user_menu.php';
-        //     }
-            
-        // }
-        // else {
-        //     include 'user_menu.php';
-        //     // include 'staff_menu.php';
-        //     // include 'menu.php';
-        // }
-        ?>
-        
-        <?php
             include 'user_menu.php';
-            // include 'staff_menu.php';
-            // include 'menu.php';
         ?>
     
     <!-- report bar -->
 
     <div class="container">
+    <?php
+        $user_id = $_SESSION["user_id"];
+    ?>
         <h1 class = "title">Report Facility</h1>
         <form action="faci_action.php" method="POST">
 
@@ -88,26 +64,23 @@ if (isset($_SESSION["user_id"])) {
                 <table class = "facility_report">
                     <tr>
                         <td class = "faci_title"> Room Name: </td>
-                        <td><input type="text" name="room_name" size="5" required></td>
+                        <td><?php echo isset($row["faci_name"]) ? $row["faci_name"] : ""; ?></td>
                     </tr>
                     <tr>
                         <td class = "faci_title"> Faci Type: </td>
-                        <td><input type="text" name="faci_type" size="5" required></td>
-                    </tr>
-                    <tr>
-                        <td class = "faci_title"> Status: </td>
-                        <td><input type="text" name="status" size="5" required></td>
+                        <td><?php echo isset($row["faci_type"]) ? $row["faci_type"] : ""; ?></td>
                     </tr>
                     <tr>
                         <td class = "faci_title"> Report Category: </td>
-                        <td><input type="text" name="cat" size="5" required></td>
+                        <td>Facility</td>
                     </tr>
+                    
                     <tr>
-                        <td class = "faci_title_d"> Report Description: </td>
+                        <td class = "faci_title_d" style="text-align:center; "> Report Description: </td>
+                        <td><textarea rows="4" name="report_description" cols="20"></textarea></td>
                     </tr>
-                    <tr>
-                        <td><textarea rows="4" name="des" cols="20"></textarea></td>
-                    </tr>
+
+                    <input type="hidden" name="faci_id" value="<?php echo $faci_id;?>">
                 </table> 
             </div>
             
