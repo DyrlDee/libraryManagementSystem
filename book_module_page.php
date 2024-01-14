@@ -55,7 +55,7 @@ if (isset($_SESSION["type"])) {
 			<img src="img/' . $row['book_img'] . '" alt="' . $row['book_name'] . '">
 			<div class="action-buttons">
 				<button class="borrow" onclick="redirectToBorrowPage(' . $row['book_id'] . ')">Borrow</button>
-				<button class="report" onclick="redirectToReportPage(\'' . $row['book_name'] . '\')">Report</button>
+				<button class="report" onclick="redirectToReportPage(\'' . $row['book_id'] . '\')">Report</button>
 			</div>
 		</div>';
     }
@@ -72,8 +72,9 @@ if (isset($_SESSION["type"])) {
         window.location.href = 'book_module_loan.php?book_id=' + bookId;
     }
 
-    function redirectToReportPage(bookName) {
+    function redirectToReportPage(bookId) {
         // Implement the logic to redirect to the report page
+        window.location.href = 'book_report.php?book_id=' + bookId;
     }
 </script>
 	<footer>
