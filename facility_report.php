@@ -35,7 +35,7 @@ if (isset($_SESSION["user_id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Report</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -53,34 +53,16 @@ if (isset($_SESSION["user_id"])) {
 
 <body>
         <?php
-        // if(isset($_SESSION["type"])){
-
-        //     if($_SESSION["type"] == 1){
-        //         // For Staff
-        //         include 'staff_menu.php';
-        //     }
-        //     elseif($_SESSION["type"] == 2){
-        //         //For User
-        //         include 'user_menu.php';
-        //     }
-            
-        // }
-        // else {
-        //     include 'user_menu.php';
-        //     // include 'staff_menu.php';
-        //     // include 'menu.php';
-        // }
-        ?>
-        
-        <?php
             include 'user_menu.php';
-            // include 'staff_menu.php';
-            // include 'menu.php';
         ?>
     
     <!-- report bar -->
 
     <div class="container">
+    <?php
+        $user_id = $_SESSION["user_id"];
+        $sql = "SELECT * FROM facility WHERE user_id = '$user_id' AND faci_name = '$faci_name'";
+    ?>
         <h1 class = "title">Report Facility</h1>
         <form action="faci_action.php" method="POST">
 
@@ -88,25 +70,39 @@ if (isset($_SESSION["user_id"])) {
                 <table class = "facility_report">
                     <tr>
                         <td class = "faci_title"> Room Name: </td>
-                        <td><input type="text" name="room_name" size="5" required></td>
+                        <?php
+                            if ($result) {
+                                $row = mysqli_fetch_assoc($result);
+                                if ($row) {
+                                    echo "<td>" . (isset($row["faci_name"]) ? $row["faci_name"] : "") . "</td>";
+                                } else {
+                                    echo "No data found";
+                                }
+                            }
+                        ?>
                     </tr>
                     <tr>
                         <td class = "faci_title"> Faci Type: </td>
-                        <td><input type="text" name="faci_type" size="5" required></td>
-                    </tr>
-                    <tr>
-                        <td class = "faci_title"> Status: </td>
-                        <td><input type="text" name="status" size="5" required></td>
+                        <?php
+                            if ($result) {
+                                $row = mysqli_fetch_assoc($result);
+                                if ($row) {
+                                    echo "<td>" . (isset($row["faci_type"]) ? $row["faci_type"] : "") . "</td>";
+                                } else {
+                                    echo "No data found";
+                                }
+                            }
+                        ?>
                     </tr>
                     <tr>
                         <td class = "faci_title"> Report Category: </td>
-                        <td><input type="text" name="cat" size="5" required></td>
+                        <td>Facility</td>
                     </tr>
                     <tr>
                         <td class = "faci_title_d"> Report Description: </td>
                     </tr>
                     <tr>
-                        <td><textarea rows="4" name="des" cols="20"></textarea></td>
+                        <td><textarea rows="4" name="report_description" cols="20"></textarea></td>
                     </tr>
                 </table> 
             </div>
