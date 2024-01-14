@@ -6,7 +6,7 @@ if (isset($_SESSION["user_id"])) {
     $userId = $_SESSION["user_id"];
 } else {
     // Redirect to login page or handle the case when the user is not logged in
-    //header("Location: login.php");
+    header("Location: index.php");
     //exit();
 }
 
@@ -50,8 +50,7 @@ if (isset($_GET["faci_id"])) {
             include 'staff_menu.php';
         } elseif ($_SESSION["type"] == 2) {
             // For User - Redirect to the home page
-            header("Location: index.php");
-            exit();
+			include 'user_menu.php';
         }
     } else {
         // Default to staff menu

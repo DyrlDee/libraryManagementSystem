@@ -25,6 +25,8 @@ if (isset($_SESSION["user_id"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Book Loan History</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -65,7 +67,6 @@ if (isset($_SESSION["type"])) {
                 <th width="30%">Date Borrowed</th>
                 <th width="20%">Return Due</th>
                 <th width="15%">Status</th>
-                <th width="15%">&nbsp;</th>
             </tr>
         </thead>
 
@@ -86,16 +87,15 @@ if (isset($_SESSION["type"])) {
                         <td data-title="Book Name">' . getBookName($row["book_id"]) . '</td>
                         <td data-title="Date Borrowed">' . $row["date_start"] . '</td>
                         <td data-title="Return Due">' . $row["date_end"] . '</td>
-                        <td data-title="Status">' . getStatusLabel($row["hasReturn"]) . '</td>
-                        <td>';
+                        <td data-title="Status">' . getStatusLabel($row["hasReturn"]) . '</td>';
 
                 // Check if the book has already been returned
-                if ($row["hasReturn"] == 'no') {
-                    echo '<a class="link-btn" href="">Return</a>';
-					//Staff should update this book status
-                }
+                // if ($row["hasReturn"] == 'no') {
+                //     echo '<a class="link-btn" href="">Return</a>';
+				// 	//Staff should update this book status
+                // }
 
-                echo '</td></tr>';
+                echo '</tr>';
                 $counter++;
             }
             ?>
@@ -126,8 +126,8 @@ function getStatusLabel($status) {
     }
 }
 ?>
-	<footer>
+	<!-- <footer>
 		<br>Copyright 2023.</br>
-	</footer>
+	</footer> -->
 </body>
 </html>
