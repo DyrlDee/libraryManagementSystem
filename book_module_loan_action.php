@@ -73,6 +73,17 @@ if (isset($_SESSION["type"])) {
 		$dateBorrow = $_POST["dateBorrow"];
 		$dateReturn = $_POST["dateReturn"];
 
+        //check if date borrow is in between borrow date
+        $sql = "SELECT *FROM bookloan WHERE date_end >= '$dateBorrow' AND book_id = '$bookId';";
+
+        $result = mysqli_query($conn, $sql);
+
+        if(mysqli_num_rows($result)>0){
+            //book is unavailable at that time
+            header("Location: book_module_loan.php?book_id=$bookId&fail=true");
+            exit();
+        }
+
 		$insertQuery = "INSERT INTO bookloan (user_id, book_id, date_start, date_end, hasReturn) VALUES ($userId, $bookId, '$dateBorrow', '$dateReturn', 'no')";
 		$insertResult = mysqli_query($conn, $insertQuery);
 

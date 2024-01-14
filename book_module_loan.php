@@ -16,12 +16,12 @@ if (isset($_GET["book_id"])) {
     $bookId = $_GET["book_id"];
 
     // Check if the book is already borrowed
-    $queryCheckLoan = "SELECT * FROM bookloan WHERE book_id = $bookId AND hasReturn = 'no'";
-    $resultCheckLoan = mysqli_query($conn, $queryCheckLoan);
+    // $queryCheckLoan = "SELECT * FROM bookloan WHERE book_id = $bookId AND hasReturn = 'no'";
+    // $resultCheckLoan = mysqli_query($conn, $queryCheckLoan);
 
-    if (!$resultCheckLoan) {
-        die("Query failed: " . mysqli_error($conn));
-    }
+    // if (!$resultCheckLoan) {
+    //     die("Query failed: " . mysqli_error($conn));
+    // }
 
     // Proceed to fetch book details if the book is available for loan
     $query = "SELECT * FROM book WHERE book_id = $bookId";
@@ -82,7 +82,8 @@ if (isset($_SESSION["type"])) {
 		</div>
 
         <?php
-        if (mysqli_num_rows($resultCheckLoan) > 0) {
+        // mysqli_num_rows($resultCheckLoan) > 0
+        if (false) {
             echo "<p>Book is not available for loan.\n</p>";
 			//echo "<p>\n\nBook might not be available because :</p>";
 			//echo "<p>\n(1) Another user is borrowing the book.</p>";
@@ -129,6 +130,13 @@ if (isset($_SESSION["type"])) {
 					<td colspan="2"><input type="submit" value="Submit"></td>
 				</tr>
 			</table>
+
+            <?php
+                if (isset($_GET["fail"])) {
+                    echo "Book is not available at that time";
+                }
+                    
+            ?>
 		</form>
 
         <?php
