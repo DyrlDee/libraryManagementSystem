@@ -1000,256 +1000,32 @@ div.fineEditForm div input[type="submit"]{
 }
 
 /*===========================================
-facility module page
+    Staff Report
 ===========================================*/
-.facility-module {
-    text-align: center;
+
+.title_s {
+    margin-top: 100px;
 }
 
-.category-button {
-    background-color: #4C2894;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-}
-
-    .category-button:hover {
-        background-color: #351c7c;
-    }
-
-.facility-container {
+.report_container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
+    min-height: 100vh;
 }
 
-    .facility-container a {
-        text-decoration: none;
-
-    }
-
-.facility {
-    flex: 0 0 calc(18% - 20px); /* Adjusted width and margin for 5 elements in a row */
-    box-sizing: border-box;
-    margin: 10px;
-    text-align: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    background-color: #EEF0F4;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-}
-
-    .facility h3 {
-        text-decoration: none;
-        color: #4C2894;
-        font-size: 20px;
-    }
-
-    .facility p {
-        color: #4C2894;
-        font-size: 16px;
-        margin-top: 10px;
-        text-decoration: none;
-    }
-
-.report-button {
-    background-color: red;
+.report_btn {
+    background-color: #794FCD;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px; 
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 15px;
-    text-decoration: none;
-    display: inline-block;
-}
-
-    .report-button:hover {
-        background-color: darkred;
-    }
-
-/*===========================================
-book module page
-===========================================*/
-.book-module {
-    text-align: center;
-}
-
-.category-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    margin-top: 40px;
-}
-
-    .category-buttons button {
-        background-color: #4C2894;
-        color: white;
-        padding: 15px 30px;
-        margin: 0 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-.book-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-end;
-    overflow-x: auto;
-    margin-bottom: 20px;
-}
-
-.book {
-    width: calc(22% - 20px);
-    box-sizing: border-box;
-    margin: 10px;
-    text-align: center;
-    margin-bottom: 20px;
-    margin-top: 40px;
-}
-
-    .book img {
-        max-width: 50%;
-        height: auto;
-        border-radius: 5px;
-        margin-top: auto;
-    }
-
-.action-buttons button {
+    border-radius: 5px; 
+    margin-right: 10px; 
+    margin-bottom: 30px;
     margin-top: 10px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-    .action-buttons button.borrow {
-        background-color: #4C2894;
-        color: white;
-    }
-
-    .action-buttons button.report {
-        background-color: red;
-        color: white;
-    }
-
-.search-bar {
-    text-align: center;
-    margin-bottom: 20px;
-    margin-bottom: 40px;
-    margin-top: 40px;
-}
-
-    .search-bar input {
-        padding: 10px;
-        border: 1px solid #4C2894;
-        border-radius: 5px;
-        font-size: 16px;
-    }
-
-    .search-bar button {
-        padding: 10px 20px;
-        border: 1px solid #4C2894;
-        border-radius: 5px;
-        font-size: 16px;
-        color: #4C2894;
-        cursor: pointer;
-        background-color: transparent;
-    }
-
-.book-module-loan {
-    text-align: center;
-    margin-top: 60px;
-}
-
-.form {
-    width: 100%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-    .form h2 {
-        color: #4C2894;
-        width: 100%;
-        text-align: center;
-        margin-bottom: 10px;
-    }
-
-    .form label {
-        display: block;
-        color: #4C2894;
-        box-sizing: border-box;
-        padding: 5px;
-        text-align: right;
-    }
-
-    .form input[type="text"],
-    .form input[type="date"] {
-        text-align: left;
-        padding: 10px;
-        margin: 8px 0;
-        box-sizing: border-box;
-        border: none;
-        background-color: #f5f5f5;
-    }
-
-    .form input[type="submit"] {
-        background-color: #4C2894;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        margin-top: 15px;
-    }
-
-        .form input[type="submit"]:hover {
-            background-color: #351c7c;
-        }
-
-.book-image {
-    width: 50%;
-}
-
-    .book-image img {
-        max-width: 100%;
-        max-height: 500px;
-        border-radius: 5px;
-    }
-
-.form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.message-container {
-    text-align: center;
-    margin-top: 20px;
-}
-
-    .message-container.success {
-        color: #32CD32;
-    }
-
-    .message-container.error {
-        color: #FF0000;
-    }
+  }
+  
+  .report_btn:last-child {
+    margin-right: 0; 
+  }
+  
