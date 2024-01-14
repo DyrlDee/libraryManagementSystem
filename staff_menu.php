@@ -8,7 +8,7 @@ echo '<header id="myTopHeader">
     <a href="staff_book_page.php" class="not_icon">Book</a>
     <a href="staff_facility_page.php" class="not_icon">Facility</a>
     <a href="staff_fine_page.php" class="not_icon">Fine</a>
-    <a href="#" class="not_icon">Report</a>
+    <a href="staff_report.php" class="not_icon">Report</a>
     <a href="user_list.php" class="not_icon">Users</a>
     <a href="manage_notification.php"><i class="fa fa-bell" aria-hidden="true"></i></a>
     <a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
