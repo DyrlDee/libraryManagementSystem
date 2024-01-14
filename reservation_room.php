@@ -43,21 +43,18 @@ if (isset($_GET["faci_id"])) {
 </head>
 
 <body>
-    <?php
-    if (isset($_SESSION["type"])) {
-        if ($_SESSION["type"] == 1) {
-            // For Staff
-            include 'staff_menu.php';
-        } elseif ($_SESSION["type"] == 2) {
-            // For User - Redirect to the home page
-            header("Location: index.php");
-            exit();
-        }
-    } else {
-        // Default to staff menu
-        include 'staff_menu.php';
-    }
-    ?>
+	<?php
+	session_start();
+	if (isset($_SESSION["type"])) {
+	    if ($_SESSION["type"] == 1) {
+	        include 'staff_menu.php';
+	    } elseif ($_SESSION["type"] == 2) {
+	        include 'user_menu.php';
+	    }
+	} else {
+	    include 'staff_menu.php';
+	}
+	?>
 
 	<div class="book-module-loan">
         <h2 class="title">Reserve Room</h2>
