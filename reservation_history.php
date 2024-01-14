@@ -6,9 +6,6 @@ session_start();
 if (isset($_SESSION["user_id"])) {
     $userId = $_SESSION["user_id"];
 
-    if (!$result) {
-        die("Query failed: " . mysqli_error($conn));
-    }
 } else {
     // Redirect to login page or handle the case when the user is not logged in
     //header("Location: login.php");
