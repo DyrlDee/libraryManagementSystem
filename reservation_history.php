@@ -15,8 +15,6 @@ if (isset($_SESSION["user_id"])) {
     //exit();
 }
 
-$userId = "2";
-
 ?>
 
 <!DOCTYPE html>
