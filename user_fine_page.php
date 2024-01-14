@@ -3,7 +3,11 @@ session_start();
 
 include("config.php");
 
-// $user_id = $_SESSION["user_id"];
+if(!isset($_SESSION["user_id"])){
+    header("location:index.php"); 
+}
+
+$user_id = $_SESSION["user_id"];
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +74,7 @@ include("config.php");
                 <tbody>
                 
                 <?php
-                $sql = "SELECT * FROM fine WHERE user_id = 1"; 
+                $sql = "SELECT * FROM fine WHERE user_id = $user_id"; 
                 //SELECT * FROM fine WHERE user_id = $user_id actual code
                 $result = mysqli_query($conn, $sql);
 

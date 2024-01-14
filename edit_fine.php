@@ -3,7 +3,11 @@ session_start();
 
 include("config.php");
 
-// $user_id = $_SESSION["user_id"];
+if(!isset($_SESSION["user_id"])){
+    header("location:index.php"); 
+}
+
+$user_id = $_SESSION["user_id"];
 ?>
 
 <!DOCTYPE html>

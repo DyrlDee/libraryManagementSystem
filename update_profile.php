@@ -5,20 +5,41 @@
 include 'config.php';
 session_start();
 $user_id = $_SESSION['user_id'];
+$type = $_SESSION['type'];
 
 if(isset($_POST['update_profile'])){
 
-   $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
-   $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
-
-   mysqli_query($conn, "UPDATE `user` SET user_name = '$update_name', user_email = '$update_email' WHERE user_id = '$user_id'") or die('query failed');
-
    $old_pass = $_POST['old_pass'];
-   $update_pass = mysqli_real_escape_string($conn, md5($_POST['update_pass']));
-   $new_pass = mysqli_real_escape_string($conn, md5($_POST['new_pass']));
-   $confirm_pass = mysqli_real_escape_string($conn, md5($_POST['confirm_pass']));
+   $update_pass;
+   $new_pass;
+   $confirm_pass;
 
-   if(!empty($update_pass) || !empty($new_pass) || !empty($confirm_pass)){
+   if($type == 1){
+      //staff doesn't need md5
+      $update_pass = mysqli_real_escape_string($conn, ($_POST['update_pass']));
+      $new_pass = mysqli_real_escape_string($conn, ($_POST['new_pass']));
+      $confirm_pass = mysqli_real_escape_string($conn, ($_POST['confirm_pass']));
+   }
+   elseif($type == 2){
+      //user need md5
+      $update_pass = mysqli_real_escape_string($conn, md5($_POST['update_pass']));
+      $new_pass = mysqli_real_escape_string($conn, md5($_POST['new_pass']));
+      $confirm_pass = mysqli_real_escape_string($conn, md5($_POST['confirm_pass']));
+   }
+   
+   $phone_number = $_POST["phone_number"];
+   $ic_number = $_POST["ic_number"];
+
+   if($phone_number != ""){
+      mysqli_query($conn, "UPDATE `user` SET phone_number = '$phone_number' WHERE user_id = '$user_id'") or die('query failed');
+   }
+   
+   if($ic_number != ""){
+      mysqli_query($conn, "UPDATE `user` SET ic_number = '$ic_number' WHERE user_id = '$user_id'") or die('query failed');
+   }
+
+
+   if($update_pass !="" || $new_pass !="" || $confirm_pass !=""){
       if($update_pass != $old_pass){
          $message[] = 'old password not matched!';
       }elseif($new_pass != $confirm_pass){
@@ -62,7 +83,25 @@ if(isset($_POST['update_profile'])){
 
 </head>
 <body>
-<?php include 'user_menu.php'; ?>
+<?php 
+      if(isset($_SESSION["type"])){
+
+         if($_SESSION["type"] == 1){
+               // For Staff
+               include 'staff_menu.php';
+         }
+         elseif($_SESSION["type"] == 2){
+               //For User
+               include 'user_menu.php';
+         }
+         
+      }
+      else {
+         // include 'user_menu.php';
+         // include 'staff_menu.php';
+         include 'menu.php';
+      }
+?>
 
 <div class="update-profile">
 
@@ -89,24 +128,29 @@ if(isset($_POST['update_profile'])){
       <div class="flex">
          <div class="inputBox">
             <span>username :</span>
-            <input type="text" name="update_name" value="<?php echo $fetch['user_name']; ?>" class="box">
+            <div class="box" style ="border:1px;"><?php echo $fetch['user_name']; ?></div>
+            <!-- <input type="text" name="update_name" value="<?php echo $fetch['user_name']; ?>" class="box"> -->
             <span>your email :</span>
-            <input type="email" name="update_email" value="<?php echo $fetch['user_email']; ?>" class="box">
+            <div class="box" style ="border:1px;"><?php echo $fetch['user_email']; ?></div>
+            <span>Ic number :</span>
+            <input type="text" name="ic_number" placeholder="enter ic number" value="<?php echo $fetch['ic_number']; ?>" class="box">
             <span>update your pic :</span>
             <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
          </div>
          <div class="inputBox">
             <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>">
             <span>old password :</span>
-            <input type="password" name="update_pass" placeholder="enter previous password" class="box">
+            <input type="password" name="update_pass" placeholder="enter previous password" value="" class="box">
             <span>new password :</span>
-            <input type="password" name="new_pass" placeholder="enter new password" class="box">
+            <input type="password" name="new_pass" placeholder="enter new password"  value="" class="box">
             <span>confirm password :</span>
-            <input type="password" name="confirm_pass" placeholder="confirm new password" class="box">
+            <input type="password" name="confirm_pass" placeholder="confirm new password" value="" class="box">
+            <span>Phone Number :</span>
+            <input type="text" name="phone_number" placeholder="Phone Number" value="<?php echo $fetch['phone_number']; ?>" class="box">
          </div>
       </div>
       <input type="submit" value="update profile" name="update_profile" class="btn">
-      <a href="home.php" class="delete-btn">go back</a>
+      <a href="profile.php" class="delete-btn">go back</a>
    </form>
 
 </div>

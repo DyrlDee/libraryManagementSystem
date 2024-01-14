@@ -30,7 +30,25 @@ if(isset($_GET['logout'])){
 </head>
 <body>
 
-<?php include 'user_menu.php'; ?>
+<?php 
+      if(isset($_SESSION["type"])){
+
+         if($_SESSION["type"] == 1){
+               // For Staff
+               include 'staff_menu.php';
+         }
+         elseif($_SESSION["type"] == 2){
+               //For User
+               include 'user_menu.php';
+         }
+         
+      }
+      else {
+         // include 'user_menu.php';
+         // include 'staff_menu.php';
+         include 'menu.php';
+      }
+?>
 
 <div class="container">
 

@@ -1,5 +1,45 @@
+<!--Written by: Donna Moncigil Losantas(BI21110374)-->
+
 <?php
+
+include 'config.php';
 session_start();
+
+if(isset($_POST['submit'])){
+
+   $user_email = mysqli_real_escape_string($conn, $_POST['user_email']);
+   $password;
+    //
+   $select = mysqli_query($conn, "SELECT * FROM user WHERE user_email = '$user_email'") or die('query failed');
+   //check if staff or not
+   if(mysqli_num_rows($select) > 0){
+        $row = mysqli_fetch_assoc($select);
+
+        if($row['role'] == 1){
+            $password = mysqli_real_escape_string($conn, ($_POST['password']));
+            //staff doesn't need md5
+        }
+        elseif($row['role'] == 2){
+            $password = mysqli_real_escape_string($conn, md5($_POST['password']));
+            //user will need md5
+        }
+    }else{
+        $message[] = 'incorrect email';
+    }
+   
+    $select = mysqli_query($conn, "SELECT * FROM user WHERE user_email = '$user_email' AND password = '$password'") or die('query failed');
+    if(mysqli_num_rows($select) > 0){
+    $row = mysqli_fetch_assoc($select);
+    $_SESSION['user_id'] = $row['user_id'];
+    $_SESSION['type'] = $row['role'];
+    header('location:index.php');
+    }else{
+        $message[] = 'incorrect email or password!';
+    }
+   
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -41,13 +81,73 @@ session_start();
             
         }
         else {
-            include 'user_menu.php';
+            // include 'user_menu.php';
             // include 'staff_menu.php';
-            // include 'menu.php';
+            include 'menu.php';
         }
         ?>
 
+            <?php 
+            if(isset($_SESSION["user_id"])){
+            
+                $user_id = $_SESSION["user_id"];
+            ?>
 
+            <!-- USER ALREADY LOGIN -->
+
+            <div class="home_layout">
+            <?php
+                    $select = mysqli_query($conn, "SELECT * FROM `user` WHERE user_id = '$user_id'") or die('query failed');
+                    if(mysqli_num_rows($select) > 0){
+                        $fetch = mysqli_fetch_assoc($select);
+                    } 
+            ?>
+                <p>Welcome  <?php echo $fetch['user_name'];?>!</p>
+
+                
+                <a href="#" class="feature-button">Reserve Facility and Loan book anytime, anywhere </a>
+                
+                <a href="#" class="feature-button">Track your fine</a>
+            
+                <a href="#" class="feature-button">Get real time notification from library</a>
+            
+                
+
+                
+                </table>
+            </div>
+            
+
+            <?php
+            }
+            else {
+            ?>
+                <!-- LOGIN FORM -->
+                <div class="form-container">
+
+                <form action="" method="post" enctype="multipart/form-data">
+                <h3>login</h3>
+                <?php
+                if(isset($message)){
+                    foreach($message as $message){
+                        echo '<div class="message">'.$message.'</div>';
+                    }
+                }
+                ?>
+                <input type="user_email" name="user_email" placeholder="enter email" class="box" required>
+                <input type="password" name="password" placeholder="enter password" class="box" required>
+                <input type="submit" name="submit" value="login now" class="btn">
+                <p>No account? <a href="register.php">Create new account</a></p>
+                </form>
+
+                </div>
+
+
+            <?php
+            }
+            ?>
+
+        
 
     </body>
 </html>

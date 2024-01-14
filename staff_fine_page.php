@@ -3,7 +3,12 @@ session_start();
 
 include("config.php");
 
-// $user_id = $_SESSION["user_id"];
+//check if logged-in
+if(!isset($_SESSION["user_id"])){
+    header("location:index.php"); 
+}
+
+$user_id = $_SESSION["user_id"];
 ?>
 
 <!DOCTYPE html>
@@ -229,6 +234,6 @@ include("config.php");
 
         <br>
         <br>
-
+    
     </body>
 </html>

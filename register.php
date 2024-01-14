@@ -73,7 +73,7 @@ if(isset($_POST['submit'])){
       <input type="password" name="cpassword" placeholder="confirm password" class="box" required>
       <input type="file" name="profile_img" class="box" accept="image/jpg, image/jpeg, image/png">
       <input type="submit" name="submit" value="submit" class="btn">
-      <p>already have an account? <a href="login.php">login now</a></p>
+      <p>already have an account? <a href="index.php">login now</a></p>
    </form>
 
 </div>
