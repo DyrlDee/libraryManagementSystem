@@ -963,36 +963,57 @@ div.fineEditForm div input[type="submit"]{
 }
 
 /*===========================================
-    Book Report
+    Book Report 1.1
 ===========================================*/
 .book_grid {
+    padding-top: 100px;
     margin-top: 50px;
+    margin: 0 auto; /* Center the container horizontally */
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the child grids horizontally */
     width: 100%;
-    max-width: 700px;
+    max-width: 1000px;
 }
 
-.photo_grid,
 .table_grid {
-    width: 48%;
-    border: 1px solid #ccc;
-    padding: 10px;
-    box-sizing: border-box;
-    border-collapse: collapse;
-    border: none;
+    width: 100%;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
 }
 
 .photo_grid {
-    width: 48%;
+    width: 50%;
     padding: 10px;
     box-sizing: border-box;
+    margin: auto;
 }
+
 
 .photo_grid img {
     width: 100%;
     height: auto;
     display: block;
+}
+
+.section_table_3 {
+    width: 100%;
+    /* max-width: 800px; */
+    flex-direction: column;
+    margin-top: 20px;
+    font-family: Raleway;
+    font-weight: 300;
+    padding: 20px;
+    color: #794FCD;
+}
+
+.title_A {
+    width: 5%;
+    height: 50px;
+    text-align: left;
+}
+
+.title_B {
+    width: 95%;
+    text-align: left;
 }
 
 /*===========================================
