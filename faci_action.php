@@ -16,23 +16,15 @@ session_start();
 include("config.php");
 
 //variables
-$room_name = "";
-$faci_type = "";
-$status = "";
-$cat = "";
-$des = "";
+$report_description = "";
 
 //this block is called when the Submit button is clicked
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //values for add or edit
-    $room_name = isset($_POST["room_name"]) ? $_POST["room_name"] : "";
-    $faci_type = isset($_POST["faci_type"]) ? $_POST["faci_type"] : "";
-    $status = isset($_POST["status"]) ? $_POST["status"] : "";
-    $cat = isset($_POST["cat"]) ? $_POST["cat"] : "";
-    $des = isset($_POST["des"]) ? $_POST["des"] : "";
+    $report_description = isset($_POST["report_description"]) ? $_POST["report_description"] : "";
 
-    $sql = "INSERT INTO facility_reports (room_name, faci_type, status, report_category, report_description)
-        VALUES ('$room_name', '$faci_type', '$status', '$cat', '$des')";
+    $sql = "INSERT INTO report (report_category, report_description, status)
+        VALUES ('Facility', '$report_description', 'Pending')";
 
     $status = insertTo_DBTable($conn, $sql);
 
