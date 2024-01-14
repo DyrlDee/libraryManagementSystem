@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("config.php");
 
 // Fetch Meeting Room facilities
@@ -27,7 +28,7 @@ if (!$resultMeetingRoom || !$resultCubicle) {
 <body>
 
 <?php
-session_start();
+
 if (isset($_SESSION["type"])) {
     if ($_SESSION["type"] == 1) {
         include 'staff_menu.php';
@@ -49,7 +50,7 @@ if (isset($_SESSION["type"])) {
 	while ($row = mysqli_fetch_assoc($resultMeetingRoom)) {
 		echo '<div class="facility">
 			<h3><a href="reservation_room.php?faci_id=' . $row["faci_id"] . '">' . $row["faci_name"] . '</a></h3>
-			<a href="report_page.php?faci_id=' . $row["faci_id"] . '" class="report-button red">Report</a>
+			<a href="facility_report.php?faci_id=' . $row["faci_id"] . '" class="report-button red">Report</a>
 		</div>';
 	}
 	?>
@@ -63,7 +64,7 @@ if (isset($_SESSION["type"])) {
 		while ($row = mysqli_fetch_assoc($resultCubicle)) {
 			echo '<div class="facility">
 				<h3><a href="reservation_room.php?faci_id=' . $row["faci_id"] . '">' . $row["faci_name"] . '</a></h3>
-				<a href="report_page.php?faci_id=' . $row["faci_id"] . '" class="report-button red">Report</a>
+				<a href="facility_report.php?faci_id=' . $row["faci_id"] . '" class="report-button red">Report</a>
 			</div>';
 		}
 		?>
