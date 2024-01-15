@@ -275,8 +275,5 @@ if(!empty($_GET['id'])) {
 			</script>';
 		}
 		?>
-	<footer>
-		<br>Copyright 2024.</br>
-	</footer>
     </body>
 </html>
