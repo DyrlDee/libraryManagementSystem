@@ -1,12 +1,12 @@
 <?php
 session_start();
 include("config.php");
+include("reusable.php");
 
 
 $user_id;
 $notifications;
 
-// Fetch notifications for the current user
 if (isset($_SESSION["user_id"])) {
     $user_id = $_SESSION["user_id"];
     $query = "SELECT * FROM notification WHERE user_id = $user_id";
@@ -16,22 +16,12 @@ if (isset($_SESSION["user_id"])) {
         die("Query failed: " . mysqli_error($conn));
     }
 
-    // Fetched notifications array
     $notifications = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
+
+customhead("My Notification");
+usertype("type");
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Notification</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
 <script>
     function myFunction() {
         var x = document.getElementById("myTopHeader");
@@ -44,35 +34,13 @@ if (isset($_SESSION["user_id"])) {
 </script>
 
 <body>
-        <?php 
-        if(isset($_SESSION["type"])){
-
-            if($_SESSION["type"] == 1){
-                // For Staff
-                include 'staff_menu.php';
-            }
-            elseif($_SESSION["type"] == 2){
-                //For User
-                include 'user_menu.php';
-            }
-            
-        }
-        else {
-            include 'user_menu.php';
-            // include 'staff_menu.php';
-            // include 'menu.php';
-        }
-        ?>
     
-    <!-- notification bar -->
-
     <div class="container">
         <div class="notification-bar">
             <div class="notification-title"> Notification </div>
 
         </div>
 
-        <!-- notification message -->
         <?php
         if (isset($notifications) && count($notifications) > 0) {
             foreach ($notifications as $notification) {

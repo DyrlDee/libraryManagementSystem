@@ -1,11 +1,9 @@
 <?PHP
 session_start();
 include("config.php");
+include("reusable.php");
 
-//check if logged-in
-if(!isset($_SESSION["UID"])){
-    header("location:index.php"); 
-}
+sessionvalidation("$id");
 
 //variables
 $fine_id = "";
@@ -38,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         VALUES ($user_id,$id,'$fine_category', '$fine_description', $fine_fee, '$status')";
     }
     
-    $status = update_DBTable($conn, $sql);
+    $status = runquery($conn, $sql);
 
     if ($status) {
         header("Location: staff_fine_page.php?email=$email");
@@ -49,13 +47,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 //close db connection
 mysqli_close($conn);
-//Function to insert data to database table
-function update_DBTable($conn, $sql){
-    if (mysqli_query($conn, $sql)) {
-        return true;
-    } else {
-        echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-        return false;
-    }
-}
 ?>

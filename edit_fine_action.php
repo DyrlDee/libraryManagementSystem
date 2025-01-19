@@ -1,11 +1,9 @@
 <?PHP
 session_start();
 include("config.php");
+include("reusability.php")
 
-//check if logged-in
-if(!isset($_SESSION["UID"])){
-    header("location:index.php"); 
-}
+sessionvalidation("UID");
 
 $user_id = $_SESSION["user_id"];
 //variables
@@ -14,7 +12,6 @@ $fine_category = "";
 $fine_description = "";
 $fine_fee =" ";
 $status = "";
-//for upload
 
 
 //this block is called when button Submit is clicked
@@ -31,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE fine SET fine_category= '$fine_category', fine_description ='$fine_description', fine_fee =
     $fine_fee,status = '$status' WHERE fine_id = ". $fine_id;
     
-    $status = update_DBTable($conn, $sql);
+    $status = runquery($conn, $sql);
 
     if ($status) {
         header("Location: staff_fine_page.php?email=$email");
@@ -40,15 +37,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } 
   
 }
-//close db connection
 mysqli_close($conn);
-//Function to insert data to database table
-function update_DBTable($conn, $sql){
-    if (mysqli_query($conn, $sql)) {
-        return true;
-    } else {
-        echo "Error: " . $sql . " : " . mysqli_error($conn) . "<br>";
-        return false;
-    }
-}
 ?>

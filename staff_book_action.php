@@ -1,6 +1,8 @@
 <?php //code for adding or updating room
 session_start();
 include("config.php");
+include("reusable.php");
+
 
 function sanitize($input) {
 	$input = htmlspecialchars($input);
