@@ -1,11 +1,9 @@
 <?PHP
 session_start();
 include("config.php");
+include("reusable.php");
 
-//check if logged-in
-if(!isset($_SESSION["UID"])){
-    header("location:index.php"); 
-}
+sessionvalidation("UID");
 
 $email;
 

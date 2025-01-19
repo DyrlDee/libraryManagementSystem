@@ -1,20 +1,16 @@
 <?php
 session_start();
 include("config.php");
+include("reusable.php");
 
 if (isset($_SESSION["user_id"])) {
     $userId = $_SESSION["user_id"];
 } else {
-    // Redirect to login page or handle the case when the user is not logged in
-    //header("Location: login.php");
-    //exit();
 }
 
-// Fetch book details based on the book ID from the URL
 if (isset($_GET["book_id"])) {
     $bookId = $_GET["book_id"];
 
-    // Proceed to fetch book details if the book is available for loan
     $query = "SELECT * FROM book WHERE book_id = $bookId";
     $result = mysqli_query($conn, $query);
 
@@ -24,39 +20,13 @@ if (isset($_GET["book_id"])) {
 
     $bookDetails = mysqli_fetch_assoc($result);
 } else {
-    // Redirect to the book module page if no book ID is provided
-    //header("Location: book_module_page.php");
-    //exit();
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Book Loan History</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+customhead("Book Loan History");
+usertype("type");
+?>
 <body>
 
-<?php
-// Include the appropriate menu based on the user type
-if (isset($_SESSION["type"])) {
-    if ($_SESSION["type"] == 1) {
-        // For Staff
-        include 'staff_menu.php';
-    } elseif ($_SESSION["type"] == 2) {
-        // For User
-        include 'user_menu.php';
-    }
-} else {
-    // Default to staff menu if user type is not set
-    include 'staff_menu.php';
-}
-?>
 
 <div class="category-buttons">
     <button onclick="location.href='book_module_page.php'">All</button>
@@ -135,12 +105,6 @@ if (isset($_SESSION["type"])) {
                         <td data-title="Return Due">' . $row["date_end"] . '</td>
                         <td data-title="Status">' . getStatusLabel($row["hasReturn"]) . '</td>';
 
-                // // Check if the book has already been returned
-                // if ($row["hasReturn"] == 'no') {
-                //     echo '<a class="link-btn" href="">Return</a>';
-                //     // Staff should update this book status
-                // }
-
                 echo '</tr>';
                 $counter++;
             }
@@ -150,10 +114,8 @@ if (isset($_SESSION["type"])) {
 </div>
 
 <?php
-// Close the database connection
 mysqli_close($conn);
 
-// Helper function to get book name based on book ID
 function getBookName($bookId) {
     global $conn;
     $query = "SELECT book_name FROM book WHERE book_id = $bookId";

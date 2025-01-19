@@ -2,21 +2,11 @@
 session_start();
 
 include("config.php");
+include("reusable.php");
 
-// $user_id = $_SESSION["user_id"];
+customhead("Manage Notification");
+usertype("type");
 ?>
-
-<!DOCTYPE html>
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-    <title>Manage Notification</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-
     <script>
 
         function myFunction() {
@@ -29,34 +19,11 @@ include("config.php");
         }
 
     </script>
-
     <body>
-
-        <?php 
-        if(isset($_SESSION["type"])){
-
-            if($_SESSION["type"] == 1){
-                // For Staff
-                include 'staff_menu.php';
-            }
-            elseif($_SESSION["type"] == 2){
-                //For User
-                include 'user_menu.php';
-            }
-            
-        }
-        else {
-            include 'user_menu.php';
-            // include 'staff_menu.php';
-            // include 'menu.php';
-        }
-        ?>
-		
 		<h2 class="title">Manage Notification</h2>
 		
 		<div class="container">
 
-		<!-- Form search user -->
 		<div class="search">
 			<form action="#.php" method="GET">
 				<label for="email">User Email : </label>
@@ -76,7 +43,6 @@ include("config.php");
 
 			echo "<div>";
 			if($row){
-				// Check if the email exists in the database
 			echo "<h3 style='font-weight:600' class='displayInfo'> User Info </h3>";
 			echo "<h3 class='displayInfo'> <b>Username</b>: " . $row["user_name"] . "</h3>";
 			echo "<h3 class='displayInfo'> <b>Email:</b> " . $row["user_email"] . "</h3>";
@@ -120,7 +86,6 @@ include("config.php");
 
 			}
 			else {
-				// Check if there are no notifications
 				$sqlCheckUser = "SELECT * FROM user WHERE user_email = '$email'";
 				$resultCheckUser = mysqli_query($conn, $sqlCheckUser);
 
@@ -133,7 +98,6 @@ include("config.php");
 			
 			echo "</div>";
 		} else {
-			// Display search prompt when the page is loaded
 			echo "<p style='color: #505050; font-size: 18px; font-family: Raleway; font-weight: 200;'>Search user by email address</p>";
 		}
 		mysqli_close($conn);

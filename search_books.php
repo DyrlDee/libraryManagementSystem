@@ -1,5 +1,7 @@
 <?php
 include("config.php");
+include("reusable.php");
+
 
 if (isset($_GET["query"])) {
     $searchQuery = mysqli_real_escape_string($conn, $_GET["query"]);
@@ -19,29 +21,13 @@ if (isset($_GET["query"])) {
     header("Location: book_module_page.php");
     exit();
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Books</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+customhead("Search Books");
+loggedin_usertype("type");
+?>
 
 <?php
 session_start();
-if (isset($_SESSION["type"])) {
-    if ($_SESSION["type"] == 1) {
-        include 'staff_menu.php';
-    } elseif ($_SESSION["type"] == 2) {
-        include 'user_menu.php';
-    }
-} else {
-    include 'staff_menu.php';
-}
 ?>
 
 <div class="category-buttons">

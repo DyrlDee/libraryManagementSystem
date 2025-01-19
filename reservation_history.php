@@ -1,17 +1,13 @@
 <?php
 include("config.php");
+include("reusable.php");
 
 // Fetch loan history for the current user from the database
 session_start();
-if (isset($_SESSION["user_id"])) {
-    $userId = $_SESSION["user_id"];
 
-} else {
-    // Redirect to login page or handle the case when the user is not logged in
-    header("Location: index.php");
-    //exit();
-}
-
+sessionvalidation("user_id");
+customhead("Reservation History");
+loggedin_usertype("type");
 ?>
 
 <!DOCTYPE html>
@@ -26,28 +22,10 @@ if (isset($_SESSION["user_id"])) {
 </head>
 <body>
 
-<?php
-// Include the appropriate menu based on the user type
-if (isset($_SESSION["type"])) {
-    if ($_SESSION["type"] == 1) {
-        // For Staff
-        include 'staff_menu.php';
-    } elseif ($_SESSION["type"] == 2) {
-        // For User
-        include 'user_menu.php';
-    }
-} else {
-    // Default to staff menu if user type is not set
-    include 'staff_menu.php';
-}
-?>
-
-<!-- Content specific to reservation history page -->
 <div class="reservation-history">
 
     <h2 class="title">Reservation History</h2>
 
-    <!-- History Table -->
     <table border="1" width="80%" style="border-collapse: collapse;" class="Atable">
         <thead>
             <tr>
@@ -81,7 +59,6 @@ if (isset($_SESSION["type"])) {
 </div>
 
 <?php
-// Close the database connection
 mysqli_close($conn);
 
 function getFaciName($faci_id) {
