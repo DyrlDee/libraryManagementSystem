@@ -7,8 +7,13 @@ class BookLoanTest extends TestCase
 
     protected function setUp(): void
     {
-        // Simulate database connection with XAMPP socket path
-        $this->conn = new mysqli('localhost', 'root', '', 'test_db', null, '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock');
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "librarylms";
+
+        $this->conn = new mysqli($servername, $username, $password, $dbname);
+
         if ($this->conn->connect_error) {
             $this->fail("Database connection failed: " . $this->conn->connect_error);
         }
@@ -38,7 +43,6 @@ class BookLoanTest extends TestCase
 
     protected function tearDown(): void
     {
-        // Clean up the test database
         $this->conn->query("DROP TABLE IF EXISTS `book`");
         $this->conn->query("DROP TABLE IF EXISTS `bookloan`");
         $this->conn->close();
@@ -46,10 +50,8 @@ class BookLoanTest extends TestCase
 
     public function testBookLoanFormDisplay()
     {
-        // Simulate a GET request with a book ID
         $_GET = ['book_id' => 1];
 
-        // Start output buffering
         ob_start();
         include 'book_module_loan.php';
         $output = ob_get_clean(); // Get and clean the output buffer

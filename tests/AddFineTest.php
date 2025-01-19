@@ -12,15 +12,12 @@ class AddFineTest extends TestCase
         $password = "";
         $dbname = "librarylms";
 
-        // Create a new mysqli connection
         $this->conn = new mysqli($servername, $username, $password, $dbname);
 
-        // Check for connection errors
         if ($this->conn->connect_error) {
             $this->fail("Database connection failed: " . $this->conn->connect_error);
         }
 
-        // Create test tables for fines, users, and related entities
         $this->conn->query("CREATE TABLE IF NOT EXISTS `fine` (
             `fine_id` INT AUTO_INCREMENT PRIMARY KEY,
             `user_id` INT NOT NULL,
@@ -66,19 +63,16 @@ class AddFineTest extends TestCase
             'status' => 'pending'
         ];
 
-        // Include the add_fine_action.php script
         ob_start();
         require_once 'add_fine_action.php'; // Use require_once to avoid redeclaration errors
         $output = ob_get_clean();
 
-        // Check if the fine was inserted into the database
         $result = $this->conn->query("SELECT * FROM `fine` WHERE user_id = 1 AND loan_id = 1");
         $this->assertEquals(1, $result->num_rows, "Fine should be added for the loan.");
     }
 
     public function testAddFineForReservation()
     {
-        // Simulate form submission for a reservation fine
         $_POST = [
             'user_id' => 1,
             'id' => 1,
@@ -90,12 +84,10 @@ class AddFineTest extends TestCase
             'status' => 'pending'
         ];
 
-        // Include the add_fine_action.php script
         ob_start();
-        require_once 'add_fine_action.php'; // Use require_once to avoid redeclaration errors
+        require_once 'add_fine_action.php'; 
         $output = ob_get_clean();
 
-        // Check if the fine was inserted into the database
         $result = $this->conn->query("SELECT * FROM `fine` WHERE user_id = 1 AND reserve_id = 1");
         $this->assertEquals(1, $result->num_rows, "Fine should be added for the reservation.");
     }
