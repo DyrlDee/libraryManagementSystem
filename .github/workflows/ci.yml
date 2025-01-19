@@ -12,60 +12,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:5.7  # Use MySQL 5.7 or any other version you prefer
-        env:
-          MYSQL_ROOT_PASSWORD: root  # Set the root password
-          MYSQL_DATABASE: librarylms  # Create the database used in your config.php
-        ports:
-          - 3306:3306  # Expose MySQL port
-        options: >-
-          --health-cmd="mysqladmin ping"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-
     steps:
       # Step 1: Checkout the code from the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up PHP environment (using PHP 8.2)
+      # Step 2: Set up PHP environment
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'  # Change to PHP 8.2 or higher
+          php-version: '8.1'  # Specify the PHP version you are using
           extensions: mysqli  # Add any required PHP extensions
           coverage: none
 
-      # Step 3: Install Composer
-      - name: Install Composer
-        run: |
-          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-          php -r "unlink('composer-setup.php');"
-
-      # Step 4: Cache Composer dependencies
-      - name: Cache Composer dependencies
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
-
-      # Step 5: Install dependencies
+      # Step 3: Install Composer dependencies
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: composer install --prefer-dist --no-progress --no-suggest
 
-      # Step 6: Update config.php for CI/CD environment
-      - name: Update database configuration for CI/CD
-        run: |
-          sed -i "s|'/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock'|null|g" config.php
-          sed -i "s|'localhost'|'127.0.0.1'|g" config.php
-          sed -i "s|''|'root'|g" config.php
-
-      # Step 7: Run PHPUnit tests
+      # Step 4: Run PHPUnit tests
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit tests/
