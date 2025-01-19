@@ -7,8 +7,16 @@ class AddFineTest extends TestCase
 
     protected function setUp(): void
     {
-        // Simulate database connection with XAMPP socket path
-        $this->conn = new mysqli('localhost', 'root', '', 'test_db', null, '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock');
+        // Use the same database connection details as in config2.php
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "librarylms";
+
+        // Create a new mysqli connection
+        $this->conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Check for connection errors
         if ($this->conn->connect_error) {
             $this->fail("Database connection failed: " . $this->conn->connect_error);
         }
