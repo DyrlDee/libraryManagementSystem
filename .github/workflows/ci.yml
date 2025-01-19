@@ -17,18 +17,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up PHP environment
+      # Step 2: Set up PHP environment (using PHP 8.2)
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'  # Specify the PHP version you are using
+          php-version: '8.2'  # Change to PHP 8.2 or higher
           extensions: mysqli  # Add any required PHP extensions
           coverage: none
 
-      # Step 3: Install Composer dependencies
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+      # Step 3: Install Composer
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          php -r "unlink('composer-setup.php');"
 
-      # Step 4: Run PHPUnit tests
+      # Step 4: Cache Composer dependencies
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # Step 5: Install dependencies
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      # Step 7: Run PHPUnit tests
       - name: Run PHPUnit tests
         run: ./vendor/bin/phpunit tests/
