@@ -7,7 +7,6 @@ class AddFineTest extends TestCase
 
     protected function setUp(): void
     {
-        // Use the same database connection details as in config2.php
         $servername = "localhost";
         $username = "root";
         $password = "";
