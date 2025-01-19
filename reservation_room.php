@@ -1,14 +1,9 @@
 <?php
 session_start();
 include("config.php");
+include("reusable.php");
 
-if (isset($_SESSION["user_id"])) {
-    $userId = $_SESSION["user_id"];
-} else {
-    // Redirect to login page or handle the case when the user is not logged in
-    header("Location: index.php");
-    //exit();
-}
+sessionvalidation("user_id");
 
 // Fetch book details based on the book ID from the URL
 if (isset($_GET["faci_id"])) {
@@ -28,38 +23,15 @@ if (isset($_GET["faci_id"])) {
     header("Location: facility_module.php");
     exit();
 }
+customhead("Reserve Room");
+loggedin_usertype("type");
 ?>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-    <title>Reserve Room</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
 <body>
-	<?php
-	if (isset($_SESSION["type"])) {
-	    if ($_SESSION["type"] == 1) {
-	        include 'staff_menu.php';
-	    } elseif ($_SESSION["type"] == 2) {
-	        include 'user_menu.php';
-	    }
-	} else {
-	    include 'staff_menu.php';
-	}
-	?>
-
 	<div class="book-module-loan">
         <h2 class="title">Reserve Room</h2>
 
 			<form class="form" method="post" action="">
-				<!-- Add a hidden input field to store the room_id -->
 				<input type="hidden" name="roomId" value="<?php echo $faci_id; ?>">
 
 				<table>

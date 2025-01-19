@@ -2,23 +2,12 @@
 session_start();
 
 include("config.php");
+include("reusable.php");
 
-// $user_id = $_SESSION["user_id"];
+customhead("Add fine");
+usertype("type");
 ?>
-
-<!DOCTYPE html>
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,  initial-scale=1.0">
-    <title>My Study KPI</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-
     <script>
-
         function myFunction() {
             var x = document.getElementById("myTopHeader");
             if (x.className === "myTopHeader") {
@@ -28,29 +17,7 @@ include("config.php");
             }
         }
     </script>
-
     <body>
-
-        <?php 
-        if(isset($_SESSION["type"])){
-
-            if($_SESSION["type"] == 1){
-                // For Staff
-                include 'staff_menu.php';
-            }
-            elseif($_SESSION["type"] == 2){
-                //For User
-                include 'user_menu.php';
-            }
-            
-        }
-        else {
-            include 'user_menu.php';
-            // include 'staff_menu.php';
-            // include 'menu.php';
-        }
-        ?>
-
         <?php
 
                 $loan_id = "";
@@ -58,16 +25,13 @@ include("config.php");
                 $id ="";
                 $fineExist = false;
                 if(isset($_GET["loan_id"]) && $_GET["loan_id"] != ""){
-                    //Run if it is a loan fine
                     $loan_id = $_GET["loan_id"];
                 
-                    //check if loan id is already in fine
                     $sql = "SELECT * FROM fine WHERE loan_id = $loan_id";
                     
                     $result = mysqli_query($conn, $sql);
                 
                     if (mysqli_num_rows($result) > 0) {
-                        // sorry but loan cannot be fined twice
                         $fineExist = true;
                     }
                     else{
@@ -76,17 +40,14 @@ include("config.php");
                 
                 }
                 elseif(isset($_GET["reserve_id"]) && $_GET["reserve_id"] != ""){
-                    //Run if it is a reserve fine
                 
                     $reserve_id = $_GET["reserve_id"];
                 
-                    //check if reservation id is already in fine
                     $sql = "SELECT * FROM fine WHERE reserve_id = $reserve_id";
                     
                     $result = mysqli_query($conn, $sql);
                 
                     if (mysqli_num_rows($result) > 0) {
-                        // sorry but reservation cannot be fined twice
                         $fineExist = true;
                     }
                     else{
@@ -108,10 +69,6 @@ include("config.php");
         <?php 
         if($fineExist == false){
         ?>
-
-
-        
-
         <?php
             
             if($loan_id != ""){
@@ -138,7 +95,6 @@ include("config.php");
     
                 $result2 = mysqli_query($conn, $sql2);
                 if (mysqli_num_rows($result2) > 0) {
-                    // output data of each row 
                     $numrow=1;
                     while($row = mysqli_fetch_assoc($result2)) {
                         echo "<tr>";
@@ -179,7 +135,6 @@ include("config.php");
                 
                 $result3 = mysqli_query($conn, $sql3);
                 if (mysqli_num_rows($result3) > 0) {
-                    // output data of each row 
                     $numrow=1;
                     while($row = mysqli_fetch_assoc($result3)) {
                         echo "<tr>";

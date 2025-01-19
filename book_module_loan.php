@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("config.php");
+include("reusable.php");
 
 if (isset($_SESSION["user_id"])) {
     $userId = $_SESSION["user_id"];
@@ -37,38 +38,12 @@ if (isset($_GET["book_id"])) {
     header("Location: book_module_page.php");
     exit();
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Book</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+customhead("Loan Book");
+usertype("type");
+
+?>
 <body>
-
-<?php
-// Include the appropriate menu based on the user type
-if (isset($_SESSION["type"])) {
-    if ($_SESSION["type"] == 1) {
-        // For Staff
-        include 'staff_menu.php';
-    } elseif ($_SESSION["type"] == 2) {
-        // For User
-        include 'user_menu.php';
-    }
-} else {
-    // Default to staff menu if user type is not set
-    include 'staff_menu.php';
-}
-?>
-
-<!-- Content specific to book loan module page -->
-
 <div class="book-module-loan">
     <h2>Loan Book</h2>
     
@@ -82,17 +57,11 @@ if (isset($_SESSION["type"])) {
 		</div>
 
         <?php
-        // mysqli_num_rows($resultCheckLoan) > 0
         if (false) {
             echo "<p>Book is not available for loan.\n</p>";
-			//echo "<p>\n\nBook might not be available because :</p>";
-			//echo "<p>\n(1) Another user is borrowing the book.</p>";
-			//echo "<p>\n(2) You have not return the book.</p>";
         } else {
         ?>
-        <!-- Loan Book Form -->
 		<form class="form" method="post" action="book_module_loan_action.php">
-			<!-- Add a hidden input field to store the book_id -->
 			<input type="hidden" name="bookId" value="<?php echo $bookId; ?>">
 
 			<table>
