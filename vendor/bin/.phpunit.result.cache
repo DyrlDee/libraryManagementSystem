@@ -1,0 +1,1 @@
+{"version":1,"defects":{"AddFineTest::testAddFineForLoan":8,"AddFineTest::testAddFineForReservation":8,"ReservationRoomTest::testReservationRoomFormDisplay":8,"SendNotificationTest::testFetchNotificationsForUser":8,"SendNotificationTest::testNoNotificationsForUser":8,"BookLoanActionTest::testBookLoanFormDisplay":8},"times":[]}

@@ -8,13 +8,7 @@ class SendNotificationTest extends TestCase
 
     protected function setUp(): void
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "librarylms";
-
-        $this->conn = new mysqli($servername, $username, $password, $dbname);
-
+        $this->conn = new mysqli('localhost', 'root', '', 'test_db');
         if ($this->conn->connect_error) {
             $this->fail("Database connection failed: " . $this->conn->connect_error);
         }

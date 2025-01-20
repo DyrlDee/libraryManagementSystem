@@ -1,19 +1,14 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-class BookLoanTest extends TestCase
+class BookLoanActionTest extends TestCase
 {
     private $conn;
 
     protected function setUp(): void
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "librarylms";
-
-        $this->conn = new mysqli($servername, $username, $password, $dbname);
-
+        // Simulate database connection using the same config as config.php
+        $this->conn = new mysqli('localhost', 'root', '', 'test_db');
         if ($this->conn->connect_error) {
             $this->fail("Database connection failed: " . $this->conn->connect_error);
         }
@@ -43,6 +38,7 @@ class BookLoanTest extends TestCase
 
     protected function tearDown(): void
     {
+        // Clean up the test database
         $this->conn->query("DROP TABLE IF EXISTS `book`");
         $this->conn->query("DROP TABLE IF EXISTS `bookloan`");
         $this->conn->close();
@@ -50,8 +46,10 @@ class BookLoanTest extends TestCase
 
     public function testBookLoanFormDisplay()
     {
+        // Simulate a GET request with a book ID
         $_GET = ['book_id' => 1];
 
+        // Start output buffering
         ob_start();
         include 'book_module_loan.php';
         $output = ob_get_clean(); // Get and clean the output buffer
