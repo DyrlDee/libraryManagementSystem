@@ -7,13 +7,7 @@ class AddFineTest extends TestCase
 
     protected function setUp(): void
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "librarylms";
-
-        $this->conn = new mysqli($servername, $username, $password, $dbname);
-
+        $this->conn = new mysqli('localhost', 'root', '', 'test_db');
         if ($this->conn->connect_error) {
             $this->fail("Database connection failed: " . $this->conn->connect_error);
         }
@@ -37,13 +31,11 @@ class AddFineTest extends TestCase
             `profile_img` VARCHAR(255) DEFAULT NULL
         )");
 
-        // Insert a test user
         $this->conn->query("INSERT INTO `user` (user_name, user_email, password) VALUES ('Test User', 'test@example.com', 'password123')");
     }
 
     protected function tearDown(): void
     {
-        // Clean up the test database
         $this->conn->query("DROP TABLE IF EXISTS `fine`");
         $this->conn->query("DROP TABLE IF EXISTS `user`");
         $this->conn->close();
@@ -51,7 +43,6 @@ class AddFineTest extends TestCase
 
     public function testAddFineForLoan()
     {
-        // Simulate form submission for a loan fine
         $_POST = [
             'user_id' => 1,
             'id' => 1,
@@ -64,7 +55,7 @@ class AddFineTest extends TestCase
         ];
 
         ob_start();
-        require_once 'add_fine_action.php'; // Use require_once to avoid redeclaration errors
+        require_once 'add_fine_action.php'; 
         $output = ob_get_clean();
 
         $result = $this->conn->query("SELECT * FROM `fine` WHERE user_id = 1 AND loan_id = 1");
@@ -88,6 +79,7 @@ class AddFineTest extends TestCase
         require_once 'add_fine_action.php'; 
         $output = ob_get_clean();
 
+        
         $result = $this->conn->query("SELECT * FROM `fine` WHERE user_id = 1 AND reserve_id = 1");
         $this->assertEquals(1, $result->num_rows, "Fine should be added for the reservation.");
     }
